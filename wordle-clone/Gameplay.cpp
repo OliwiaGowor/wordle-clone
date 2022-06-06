@@ -70,7 +70,7 @@ bool Gameplay::CheckIfRightWord(std::string usr_word, std::vector<std::string> w
 
 std::string Gameplay::ParallelGridManagement(std::string usr_word)
 {
-	std::string grid = "*****";
+	std::string grid = "-----";
 	std::string tmp_word = this->word;
 	std::vector<std::thread> threads(5);
 	for (int i = 0; i < threads.size(); i++)
@@ -83,9 +83,9 @@ std::string Gameplay::ParallelGridManagement(std::string usr_word)
 					{
 						grid[j] = tmp_word[i];
 					}
-					else if (tmp_word[i] == usr_word[j] && grid[j] == '*')
+					else if (tmp_word[i] == usr_word[j] && grid[j] == '-')
 					{
-						grid[j] = '-';
+						grid[j] = '*';
 					}
 				}
 			});
