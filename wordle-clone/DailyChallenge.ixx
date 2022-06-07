@@ -20,5 +20,5 @@ public:
 	void Game(WordsDatabase& database, ListOfUsers& list_of_users);
 	void SetDailyWord(WordsDatabase& database);
 	void CheckIfWordWasUsed(WordsDatabase& database);
-	void SetTodayDate(User* user);
+	void SetUsersTodayDate(std::shared_ptr<User> user);
 };

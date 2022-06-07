@@ -92,7 +92,6 @@ void FileManagement::SaveDailyWord(std::string word)
     using namespace date;
     using namespace std::chrono;
     std::ofstream file;
-    std::string line;
     auto today = date::year_month_day{ floor<days>(system_clock::now()) };
     file.open(filesPath.string() + "\\daily_word.txt", std::ios::out);
    
@@ -110,13 +109,33 @@ Date FileManagement::ReadDailyDateFromFile()
     std::ifstream file(dailyPath.string());
     std::string line;
     int day, month, year;
+    char tmp;
     if (file.is_open())
     {
+        std::getline(file, line);
         std::stringstream ss(line);
-        ss >> day >> month >> year;
+        ss >> year >> tmp >> month >> tmp >> day;
     }
     else
         std::cout << "Something went wrong!" << std::endl;
     Date tmp_date(day, month, year);
     return tmp_date;
+}
+
+std::string FileManagement::ReadDailyWordFromFile()
+{
+    fs::path dailyPath(filesPath.string() + "\\daily_word.txt");
+    std::ifstream file(dailyPath.string());
+    std::string line, word;
+
+    if (file.is_open())
+    {
+        for (int i = 0; i < 2; i++)
+            std::getline(file, line);
+        std::stringstream ss(line);
+        ss >> word;  
+    }
+    else
+        std::cout << "Something went wrong!" << std::endl;
+    return word;
 }

@@ -24,5 +24,6 @@ public:
 	void SaveDailyWord(std::string word);
 	bool SearchUsedWords(std::string word);
 	Date ReadDailyDateFromFile();
+	std::string ReadDailyWordFromFile();
 	//dodac sprawdzanie czy istnieje sciezka
 };

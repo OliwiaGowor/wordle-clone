@@ -52,6 +52,7 @@ void DailyChallenge::Game(WordsDatabase& database, ListOfUsers& list_of_users)
 			std::cout << "You lost, better luck tommorow!" << std::endl << std::endl;
 			std::cout << "The word was :" << word << std::endl;
 		}
+		SetUsersTodayDate(curr);
 	}
 	else
 	{
@@ -75,14 +76,14 @@ void DailyChallenge::CheckIfWordWasUsed(WordsDatabase& database)
 			fm.SaveDailyWord(word);
 		}
 	}
-
+	word = fm.ReadDailyWordFromFile();
 }
 
-void DailyChallenge::SetTodayDate(User* user)
+void DailyChallenge::SetUsersTodayDate(std::shared_ptr<User> user)
 {
-	using namespace date;
-	using namespace std::chrono;
-	auto today = date::year_month_day{ floor<days>(system_clock::now()) };
+	fs::path filesPath("C:\\Users\\Oliwia\\source\\repos\\My Github\\wordle-clone\\wordle-clone\\Data");
+	FileManagement fm(filesPath);
 	Date tmp_date;
+	tmp_date = fm.ReadDailyDateFromFile();
 	user->SetDate(tmp_date);
 }
