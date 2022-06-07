@@ -10,8 +10,7 @@ int main(int argc, char* argv[])
 {
 	std::string fileNameUsers,
 		fileNameDatabase;
-	fs::path filesPath("C:\\Users\\Oliwia\\source\\repos\\76e2647c-gr52-repo\\Projekt\\Klon_Wordle\\Klon_Wordle\\Data");
-
+	fs::path filesPath("C:\\Users\\Oliwia\\source\\repos\\My Github\\wordle-clone\\wordle-clone\\Data");
 	FileManagement filemanagement(filesPath);
 	Menu menu(filemanagement);
 

@@ -1,7 +1,10 @@
+#include "date.h"
 export module User;
 import <iostream>;
+import <chrono>;
 import Date;
 import UserInteractionHelper;
+using namespace std::chrono;
 
 export class User
 {
@@ -23,6 +26,7 @@ public:
 	void ChangePassword();
 	void ChangeUsername();
 	Date GetDate();
+	void SetDate(Date date);
 	int GetStreakFree();
 	void SetStreakFree(int streak);
 	int GetStreakDaily();

@@ -71,6 +71,11 @@ Date User::GetDate()
 	return last_played;
 }
 
+void User::SetDate(Date date)
+{
+	this->last_played = date;
+}
+
 int User::GetStreakFree()
 {
 	return streak_free;

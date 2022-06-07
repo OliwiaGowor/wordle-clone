@@ -1,22 +1,21 @@
 module;
 #include "date.h"
 module DailyChallenge;
+namespace fs = std::filesystem;
 
 DailyChallenge::DailyChallenge()
 {
 
 }
 
-bool DailyChallenge::CheckIfFirstTime(std::shared_ptr<User> ptr)
+bool DailyChallenge::CheckIfTodayDate(Date date)
 {
 	using namespace date;
 	using namespace std::chrono;
-	User* t = ptr.get();
-	Date tmp_date = t->GetDate();
 	auto today = date::year_month_day{ floor<days>(system_clock::now()) };
-	unsigned int d = tmp_date.GetDay();
-	unsigned int m = tmp_date.GetMonth();
-	int y = tmp_date.GetYear();
+	unsigned int d = date.GetDay();
+	unsigned int m = date.GetMonth();
+	int y = date.GetYear();
 	auto player_date = date::year_month_day{ date::year{y} , date::month{m} , date::day{d} };
 	if (today == player_date)
 	{
@@ -38,8 +37,9 @@ void DailyChallenge::DisplayStartingScreen()
 void DailyChallenge::Game(WordsDatabase& database, ListOfUsers& list_of_users)
 {
 	auto curr = list_of_users.GetCurrentUser();
-	SetWord(database);
-	if (!CheckIfFirstTime(curr))
+	Date tmp_date = curr.get()->GetDate();
+	CheckIfWordWasUsed(database);
+	if (!CheckIfTodayDate(tmp_date))
 	{
 		DisplayStartingScreen();
 		if (Logic(database))
@@ -60,3 +60,29 @@ void DailyChallenge::Game(WordsDatabase& database, ListOfUsers& list_of_users)
 
 }
 
+void DailyChallenge::CheckIfWordWasUsed(WordsDatabase& database)
+{
+	fs::path filesPath("C:\\Users\\Oliwia\\source\\repos\\My Github\\wordle-clone\\wordle-clone\\Data");
+	FileManagement fm(filesPath);
+	
+	if (!CheckIfTodayDate(fm.ReadDailyDateFromFile()))
+	{
+		SetWord(database);
+		fm.SaveDailyWord(word);
+		while (fm.SearchUsedWords(word))
+		{
+			SetWord(database);
+			fm.SaveDailyWord(word);
+		}
+	}
+
+}
+
+void DailyChallenge::SetTodayDate(User* user)
+{
+	using namespace date;
+	using namespace std::chrono;
+	auto today = date::year_month_day{ floor<days>(system_clock::now()) };
+	Date tmp_date;
+	user->SetDate(tmp_date);
+}

@@ -4,8 +4,9 @@ import <vector>;
 import <fstream>;
 import <sstream>;
 import <filesystem>;
+import <chrono>;
 import WordsDatabase;
-import DailyChallenge;
+//import DailyChallenge;
 import ListOfUsers;
 
 namespace fs = std::filesystem;
@@ -20,6 +21,8 @@ public:
 	void LoadUsers(ListOfUsers& list);
 	void SaveUsers(std::shared_ptr<ListOfUsersElement> list);
 	void LoadDatabase(WordsDatabase& wordsDatabase);
-	void SaveDailyWord();
+	void SaveDailyWord(std::string word);
+	bool SearchUsedWords(std::string word);
+	Date ReadDailyDateFromFile();
 	//dodac sprawdzanie czy istnieje sciezka
 };

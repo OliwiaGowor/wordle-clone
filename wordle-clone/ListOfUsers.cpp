@@ -93,7 +93,7 @@ void ListOfUsers::AddUser(std::string username, std::string password, int streak
     size++;
 }
 
-bool ListOfUsers::CheckIfUserExists(std::string username) //moze w watkach
+bool ListOfUsers::CheckIfUserExists(std::string username)
 {
     ListOfUsersElement* t = pHead.get();
     std::string tmpdata;
@@ -116,7 +116,7 @@ bool ListOfUsers::CheckIfUserExists(std::string username) //moze w watkach
     return false;
 }
 
-bool ListOfUsers::CheckIfRightPassword(std::string password) //moze w watkach
+bool ListOfUsers::CheckIfRightPassword(std::string password)
 {
     ListOfUsersElement* t = pHead.get();
     std::string tmpdata;

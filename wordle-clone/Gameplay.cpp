@@ -20,23 +20,23 @@ bool Gameplay::CheckIfRightWord(std::string usr_word, std::vector<std::string> w
 		for (int i = 0; i < threads.size(); i++)
 		{
 			threads[i] = std::thread([&in_database, words, usr_word, numb_of_threads, i]()
-			{
-				auto begin = words.begin() + i * words.size() / numb_of_threads;
-				auto end = words.begin() + (i + 1) * words.size() / numb_of_threads;
-				for (auto it = begin; it != end; it++)
 				{
-					if (usr_word == *it)
+					auto begin = words.begin() + i * words.size() / numb_of_threads;
+					auto end = words.begin() + (i + 1) * words.size() / numb_of_threads;
+					for (auto it = begin; it != end; it++)
 					{
-						in_database = true;
+						if (usr_word == *it)
+						{
+							in_database = true;
+						}
 					}
-				}
-			});
+				});
 		}
-	}
 
-	for (auto& t : threads)
-	{
-		t.join();
+		for (auto& t : threads)
+		{
+			t.join();
+		}
 	}
 
 	if (std::regex_match(usr_word, match, reg) && in_database)
@@ -76,19 +76,19 @@ std::string Gameplay::ParallelGridManagement(std::string usr_word)
 	for (int i = 0; i < threads.size(); i++)
 	{
 		threads[i] = std::thread([&grid, i, tmp_word, usr_word]()
+		{
+			for (int j = 0; j < usr_word.size(); j++)
 			{
-				for (int j = 0; j < usr_word.size(); j++)
+				if (tmp_word[i] == usr_word[j] && i == j)
 				{
-					if (tmp_word[i] == usr_word[j] && i == j)
-					{
-						grid[j] = tmp_word[i];
-					}
-					else if (tmp_word[i] == usr_word[j] && grid[j] == '-')
-					{
-						grid[j] = '*';
-					}
+					grid[j] = tmp_word[i];
 				}
-			});
+				else if (tmp_word[i] == usr_word[j] && grid[j] == '-')
+				{
+					grid[j] = '*';
+				}
+			}
+		});
 	}
 
 	for (auto& t : threads)
@@ -123,3 +123,5 @@ bool Gameplay::Logic(WordsDatabase& database)
 	}
 	return false;
 }
+
+

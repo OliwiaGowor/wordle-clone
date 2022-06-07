@@ -1,4 +1,5 @@
 module;
+#include "date.h"
 module FileManagement;
 namespace fs = std::filesystem;
 
@@ -32,7 +33,7 @@ void FileManagement::SaveUsers(std::shared_ptr<ListOfUsersElement> list)
     ListOfUsersElement* t = list.get();
     std::ofstream file;
     std::string line;
-    file.open(filesPath.string() + "\\users.txt", std::ios::in);
+    file.open(filesPath.string() + "\\users.txt", std::ios::out);
 
     if (file)
     {
@@ -66,8 +67,56 @@ void FileManagement::LoadDatabase(WordsDatabase& wordsDatabase)
         std::cout << "Error occured while loading database! Restart application." << std::endl;
 }
 
-
-void FileManagement::SaveDailyWord()
+bool FileManagement::SearchUsedWords(std::string word)
 {
+    fs::path used_words_path(filesPath.string() + "\\words_used.txt");
+    std::ifstream file(used_words_path.string());
+    std::string line;
 
+    if (file.is_open())
+    {
+        while (std::getline(file, line))
+        {
+            if (line == word)
+            {
+                return true;
+            }
+        }
+    }
+    else
+        return false;
+}
+
+void FileManagement::SaveDailyWord(std::string word)
+{
+    using namespace date;
+    using namespace std::chrono;
+    std::ofstream file;
+    std::string line;
+    auto today = date::year_month_day{ floor<days>(system_clock::now()) };
+    file.open(filesPath.string() + "\\daily_word.txt", std::ios::out);
+   
+    if (file.is_open())
+    {
+        file << today << std::endl << word;
+    }
+    else
+    	std::cout << "Error occured while opening file! Restart application." << std::endl;
+}
+
+Date FileManagement::ReadDailyDateFromFile()
+{
+    fs::path dailyPath(filesPath.string() + "\\daily_word.txt");
+    std::ifstream file(dailyPath.string());
+    std::string line;
+    int day, month, year;
+    if (file.is_open())
+    {
+        std::stringstream ss(line);
+        ss >> day >> month >> year;
+    }
+    else
+        std::cout << "Something went wrong!" << std::endl;
+    Date tmp_date(day, month, year);
+    return tmp_date;
 }
