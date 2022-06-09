@@ -29,4 +29,4 @@ Both of the game modes are base on the same rules: the player guesses five-lette
 
 
 ## Used elements
-  The program is based on Object-Oriented Programming. It uses class inheritance mechanism. The project has been divided into files using modules - this may cause some problems with running it, since modules are fairly new addition to C++. The game also uses multithreading mechanism. Smart pointers were used in the program to implement custom singly linked list, which contains players. Open-source, header library date.h was used in the game and is included in files.
+  The program is based on Object-Oriented Programming. It uses class inheritance mechanism. The project has been divided into files using modules. The game also uses multithreading mechanism. Smart pointers were used in the program to implement custom singly linked list, which contains players. Open-source, header library date.h was used in the game and is included in files.
