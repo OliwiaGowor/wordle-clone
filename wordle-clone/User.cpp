@@ -5,7 +5,7 @@ User::User()
 {
 }
 
-User::User(std::string username, std::string password, int streak_free, int streak_daily, int wins_daily, int loses_daily, Date tmpdate)
+User::User(std::string username, std::string password, int streak_free, int streak_daily, int wins_daily, int loses_daily, Date last_played)
 {
 	this->username = username;
 	this->password = password;
@@ -121,5 +121,6 @@ void User::DisplayStatistics()
 void User::WriteUserToFile(std::ostream& file)
 {
 	file << username << std::endl << password << std::endl << streak_free << std::endl << streak_daily << std::endl 
-		<< wins_daily << std::endl << loses_daily << std::endl << last_played;
+		<< wins_daily << std::endl << loses_daily << std::endl;
+	last_played.WriteDateToFile(file);
 }

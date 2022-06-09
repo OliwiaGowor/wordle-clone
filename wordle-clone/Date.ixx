@@ -17,6 +17,7 @@ public:
 	int GetMonth();
 	int GetYear();
 	Date ReadDateFromFile(std::string& line);
+	void WriteDateToFile(std::ostream& file);
 	friend std::ostream& operator<<(std::ostream& print, const Date& printThis);
 
 };

@@ -16,8 +16,14 @@ Date Date::ReadDateFromFile(std::string& line)
 {
 	Date tmpdate;
 	std::stringstream ss(line);
-	ss >> tmpdate.day >> tmpdate.month >> tmpdate.year;
+	char tmp;
+	ss >> tmpdate.year >> tmp >> tmpdate.month >> tmp >> tmpdate.day;
 	return tmpdate;
+}
+
+void Date::WriteDateToFile(std::ostream& file)
+{
+	file << year << '-' << month << '-' << day << std::endl;
 }
 
 int Date::GetDay()
