@@ -13,6 +13,26 @@ FileManagement::FileManagement(fs::path path)
  this -> filesPath = path;
 }
 
+void FileManagement::CreateDir()
+{
+    if (!CheckIfDirExists())
+    {
+        fs::create_directory("C:\\Users\\Oliwia\\source\\repos\\My Github\\wordle-clone\\wordle-clone\\Data");
+    }
+}
+
+bool FileManagement::CheckIfDirExists()
+{
+    if (fs::exists(filesPath))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 void FileManagement::LoadUsers(ListOfUsers& list) //dodac sprawdzanie czy istnieja sciezki i pliki
 {
     std::ifstream file;

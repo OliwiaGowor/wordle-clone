@@ -21,7 +21,7 @@ export class Menu
 public:
 	Menu(FileManagement& args);
 	bool StartingScreen();
-	void Login();
+	bool Login();
 	void RunProgram();
 	void MainMenu();
 	void SettingsMenu();

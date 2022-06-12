@@ -8,14 +8,13 @@ export class User
 	std::string username,
 		password;
 	int streak_free,
-		streak_daily,
 		wins_daily,
 		loses_daily;
 	Date last_played;
 
 public:
 	User();
-	User(std::string username, std::string password, int streak_free, int streak_daily, int wins_daily, int loses_daily, Date last_played);
+	User(std::string username, std::string password, int streak_free, int wins_daily, int loses_daily, Date last_played);
 	std::string GetUsername();
 	void SetUsername(std::string username);
 	std::string GetPassword();

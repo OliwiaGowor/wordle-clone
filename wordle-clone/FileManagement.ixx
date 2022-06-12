@@ -18,6 +18,8 @@ export class FileManagement
 public:
 	FileManagement();
 	FileManagement(fs::path path);
+	void CreateDir();
+	bool CheckIfDirExists();
 	void LoadUsers(ListOfUsers& list);
 	void SaveUsers(std::shared_ptr<ListOfUsersElement> list);
 	void LoadDatabase(WordsDatabase& wordsDatabase);

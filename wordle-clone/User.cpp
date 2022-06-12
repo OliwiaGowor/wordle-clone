@@ -5,12 +5,11 @@ User::User()
 {
 }
 
-User::User(std::string username, std::string password, int streak_free, int streak_daily, int wins_daily, int loses_daily, Date last_played)
+User::User(std::string username, std::string password, int streak_free, int wins_daily, int loses_daily, Date last_played)
 {
 	this->username = username;
 	this->password = password;
 	this->streak_free = streak_free;
-	this->streak_daily = streak_daily;
 	this->wins_daily = wins_daily;
 	this->loses_daily = loses_daily;
 	this->last_played = last_played;
@@ -86,16 +85,6 @@ void User::SetStreakFree(int streak)
 	this->streak_free = streak;
 }
 
-int User::GetStreakDaily()
-{
-	return streak_daily;
-}
-
-void User::SetStreakDaily(int streak)
-{
-	this->streak_daily = streak;
-}
-
 int User::GetDailyWins()
 {
 	return wins_daily;
@@ -111,7 +100,6 @@ void User::DisplayStatistics()
 	std::cout << "User: " << username << std::endl;
 	std::cout << "Your statistics: " << std::endl;
 	std::cout << "Longest streak in free game: " << streak_free << std::endl;
-	std::cout << "Longest streak in daily challenge: " << streak_daily << std::endl;
 	std::cout << "Won daily challenges: " << wins_daily <<std::endl;
 	std::cout << "Lost daily challenges: " << loses_daily << std::endl;
 
@@ -120,7 +108,7 @@ void User::DisplayStatistics()
 
 void User::WriteUserToFile(std::ostream& file)
 {
-	file << username << std::endl << password << std::endl << streak_free << std::endl << streak_daily << std::endl 
+	file << username << std::endl << password << std::endl << streak_free << std::endl 
 		<< wins_daily << std::endl << loses_daily << std::endl;
 	last_played.WriteDateToFile(file);
 }

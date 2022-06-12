@@ -12,7 +12,6 @@ import <thread>;
 
 export class FreePlay : public Gameplay
 {
-	std::vector<std::string>words; //nie wiem czy potrzebne, mialo byc do losowania slow na przod
 	std::vector<std::string> used_words;
 
 public:

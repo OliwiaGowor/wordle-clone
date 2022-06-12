@@ -9,6 +9,7 @@ Menu::Menu(FileManagement& args)
 
 void Menu::RunProgram()
 {
+    mainArgs.CreateDir();
     mainArgs.LoadUsers(list_of_users);
     mainArgs.LoadDatabase(wordsDatabase);
 
@@ -41,8 +42,10 @@ bool Menu::StartingScreen()
         switch (choice)
         {
         case 1:
-            Login();
-            return exit;
+            if (Login())
+            {
+                return exit;
+            }
             break;
         case 2:
             list_of_users.CreateUser();
@@ -60,12 +63,12 @@ bool Menu::StartingScreen()
 }
 
 
-void Menu::Login()
+bool Menu::Login()
 {
     if (!list_of_users.GetpHead())
     {
         std::cout << "There are no users in the database! First create new user" << std::endl;
-        return;
+        return false;
     }
     std::string usr_username, usr_password;
     std::cout << "login: ";
@@ -83,7 +86,7 @@ void Menu::Login()
             break;
         case 2:
             StartingScreen();
-            return;
+            return false;
             break;
         default:
             std::cout << "Incorrect number!" << std::endl << std::endl;
@@ -106,7 +109,7 @@ void Menu::Login()
             break;
         case 2:
             StartingScreen();
-            return;
+            return false;
             break;
         default:
             std::cout << "Incorrect number!" << std::endl << std::endl;
@@ -114,6 +117,7 @@ void Menu::Login()
         }
     }
     list_of_users.SetCurrentUser(usr_username);
+    return true;
 }
 
 void Menu::MainMenu()
@@ -212,25 +216,21 @@ void Menu::MenuLeaderboard()
         std::cout << "---------------------------------" << std::endl;
 
         std::cout << "Choose leaderboard" << std::endl << std::endl;
-        std::cout << "[1]- Leaderboard by the longest daily streak" << std::endl;
-        std::cout << "[2]- Leaderboard by the longest free play streak" << std::endl;
-        std::cout << "[3]- Leaderboard by the most won free games" << std::endl;
-        std::cout << "[4]- Return" << std::endl;
+        std::cout << "[1]- Leaderboard by the longest free play streak" << std::endl;
+        std::cout << "[2]- Leaderboard by the most won free games" << std::endl;
+        std::cout << "[3]- Return" << std::endl;
 
         this->choice = UserInteractionHelper::CheckIfInt();
 
         switch (choice)
         {
         case 1:
-            Leaderboard::LeaderboardByDaily(list_of_users);
-            break;
-        case 2:
             Leaderboard::LeaderboardByFree(list_of_users);
             break;
-        case 3:
+        case 2:
             Leaderboard::LeaderboardByDailyWins(list_of_users);
             break;
-        case 4:
+        case 3:
             MainMenu();
             break;
         default:

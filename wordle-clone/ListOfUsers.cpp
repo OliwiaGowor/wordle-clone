@@ -62,18 +62,18 @@ void ListOfUsers::CreateUser()
         std::cout << "password: ";
         std::cin >> usr_password;
     }
-    AddUser(usr_username, usr_password, tmp, tmp, tmp, tmp, tmpdate); 
+    AddUser(usr_username, usr_password, tmp, tmp, tmp, tmpdate); 
     SetCurrentUser(usr_username);
 }
 
 
-void ListOfUsers::AddUser(std::string username, std::string password, int streak_free, int streak_daily, int wins_daily, int loses_daily, Date date)
+void ListOfUsers::AddUser(std::string username, std::string password, int streak_free, int wins_daily, int loses_daily, Date date)
 {
     std::unique_ptr<ListOfUsersElement> newOne(new ListOfUsersElement);
 
     if (!pHead)
     {
-        std::unique_ptr<User> tmp = std::make_unique<User>(username, password, streak_free, streak_daily, wins_daily, loses_daily, date);
+        std::unique_ptr<User> tmp = std::make_unique<User>(username, password, streak_free, wins_daily, loses_daily, date);
         newOne->pUser = move(tmp);
         pHead = move(newOne);
     }
@@ -85,7 +85,7 @@ void ListOfUsers::AddUser(std::string username, std::string password, int streak
             tmp2 = tmp2->pNext.get();
         }
 
-        std::unique_ptr<User> tmp = std::make_unique<User>(username, password, streak_free, streak_daily, wins_daily, loses_daily, date);
+        std::unique_ptr<User> tmp = std::make_unique<User>(username, password, streak_free, wins_daily, loses_daily, date);
         newOne->pUser = move(tmp);
 
         tmp2->pNext = move(newOne);
@@ -144,7 +144,6 @@ void ListOfUsers::ReadUserFromFile(std::string& line, std::string fileName)
     std::string tmpusername,
         tmppassword;
     int tmpstreak_free,
-        tmpstreak_daily,
         tmpwins_daily,
         tmploses_daily;
     Date tmpdate;
@@ -169,20 +168,16 @@ void ListOfUsers::ReadUserFromFile(std::string& line, std::string fileName)
             counter++;
             break;
         case 4:
-            tmpstreak_daily = atoi(line.c_str());
-            counter++;
-            break;
-        case 5:
             tmpwins_daily = atoi(line.c_str());
             counter++;
             break;
-        case 6:
+        case 5:
             tmploses_daily = atoi(line.c_str());
             counter++;
             break;
-        case 7:
+        case 6:
             tmpdate = tmpdate.ReadDateFromFile(line);
-            AddUser(tmpusername, tmppassword, tmpstreak_free, tmpstreak_daily, tmpwins_daily, tmploses_daily, tmpdate);
+            AddUser(tmpusername, tmppassword, tmpstreak_free, tmpwins_daily, tmploses_daily, tmpdate);
             counter = 1;
             break;
         }
@@ -291,29 +286,6 @@ std::vector<User*> ListOfUsers::SortByFree()
     std::ranges::sort(vector, [](User * l, User * r) {
         return l->GetStreakFree() > r->GetStreakFree();
     });
-
-    return vector;
-}
-
-std::vector<User*> ListOfUsers::SortByDaily()
-{
-    ListOfUsersElement* t = pHead.get();
-    std::vector<User*> vector;
-    if (t) {
-        while (t)
-        {
-            vector.push_back(t->pUser.get());
-            t = t->pNext.get();
-        }
-    }
-    else
-    {
-        std::cout << "No users to show" << std::endl;
-    }
-
-    std::ranges::sort(vector, [](User* l, User* r) {
-        return l->GetStreakDaily() > r->GetStreakDaily();
-        });
 
     return vector;
 }

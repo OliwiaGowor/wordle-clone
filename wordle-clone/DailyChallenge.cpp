@@ -27,6 +27,7 @@ bool DailyChallenge::CheckIfTodayDate(Date date)
 	}
 }
 
+
 void DailyChallenge::DisplayStartingScreen()
 {
 	std::cout << "WORDLE" << std::endl;

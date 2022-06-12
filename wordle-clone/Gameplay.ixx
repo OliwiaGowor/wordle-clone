@@ -17,7 +17,7 @@ protected:
 public:
 	Gameplay() = default;
 	void SetWord(WordsDatabase& database);
-	std::string GetWord();
+	//std::string GetWord();
 	bool CheckIfRightWord(std::string usr_word, std::vector<std::string> words);
 	//std::string GridManagement(std::string usr_word);
 	std::string ParallelGridManagement(std::string usr_word);
