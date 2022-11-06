@@ -96,7 +96,7 @@ bool Menu::Login()
     }
     std::cout << "password: ";
     std::cin >> usr_password;
-    while (!list_of_users.CheckIfRightPassword(usr_password)) //dodac cofanie
+    while (!list_of_users.CheckIfRightPassword(usr_password))
     {
         std::cout << "Wrong password! Do you want to continue?" << std::endl;
         std::cout << "[1] Yes \n[2] No" << std::endl;

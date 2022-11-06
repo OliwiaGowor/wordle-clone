@@ -18,7 +18,7 @@ int UserInteractionHelper::CheckIfInt()
 
 bool UserInteractionHelper::CheckIfCorrectUsername(std::string username)
 {
-   std::regex check(".{3,20}"); //wywala????????
+   std::regex check(".{3,20}");
    std::smatch match;
    if (!std::regex_match(username, match, check))
    {
